@@ -6,4 +6,4 @@ gulp.task('default', function () {
 	gulp
 		.watch('src/**')
 		.on('change', livereload.changed);
-}
+});
