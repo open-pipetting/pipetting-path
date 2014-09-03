@@ -1,29 +1,107 @@
-var PBPF = require('../src/pbpf');
-var assert = require('assert');
+'use strict';
+
+var PBPF = require('../src/pbpf')
+  , assert = require('assert')
+  , Pbpf = PBPF.Pbpf
+  , BASE_OPTS = PBPF.BASE_OPTS;
 
 describe('PBPF', function() {
+  var pbpf;
+
   it('should be requirable', function() {
     assert(!!PBPF);
   });
 
   describe('.constructor', function() {
-    it('must receive an options argument', function() {
-      assert.throws(PBPF.bind(null));
+    it('should not throw when no args specified', function() {
+      assert.doesNotThrow(Pbpf.bind(null));
+    });
+  });
+
+  beforeEach(function () {
+    pbpf = new Pbpf();
+  });
+
+  describe('.generate', function() {
+    var opts;
+
+    beforeEach(function () {
+      opts = BASE_OPTS;
     });
 
-    it('should fail if opts is not similar to the expected', function() {
-      var opts = {
-        something: 'anotherthing'
-      };
+    it('should create a matrix with the corret width and height', function() {
+      opts.width = 5;
+      opts.height = 5;
 
-      assert.throws(PBPF.bind(null, opts));
+      var matrix = pbpf.generate(opts);
+
+      assert(matrix.length === 5 && matrix[0].length === 5)
+    });
+  });
+
+  describe('.addLayers', function() {
+    it('add a 1-thick layer to a matrix', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var expected = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [1,1,1,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var actual = pbpf.addLayers(matrix, [{height: 2, width: 3, thickness: 1}]);
+
+      assert.deepEqual(actual, expected);
     });
 
-    it('should not fail if opts is similar to the expected', function() {
-      var opts = {width: 0, height: 0, layers: [{height: 0, width: 0,
-        thickness: 0 } ], pipette: {width: 0, height: 0 }, precision: 1};
+    it('add a 2-thick layer to a matrix', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var expected = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [1,1,1,0,0],
+        [1,1,1,0,0],
+        [0,0,0,0,0],
+      ];
+      var actual = pbpf.addLayers(matrix, [{height: 2, width: 3, thickness: 2}]);
 
-      assert.doesNotThrow(PBPF.bind(null, opts));
+      assert.deepEqual(actual, expected);
+    });
+
+    it('add a 2 layers to a matrix', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var expected = [
+        [0,0,0,0,0],
+        [1,1,1,0,0],
+        [0,0,0,0,0],
+        [1,1,1,0,0],
+        [0,0,0,0,0],
+      ];
+
+      var actual = pbpf.addLayers(matrix, [
+        {height: 1, width: 3, thickness: 1},
+        {height: 3, width: 3, thickness: 1}
+      ]);
+
+      assert.deepEqual(actual, expected);
     });
   });
 });
