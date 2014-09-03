@@ -97,6 +97,50 @@ Pbpf.prototype.addLayers = function (matrix, layers) {
   return matrix;
 };
 
+/**
+ * Given a starting and an ending poit,
+ * generates the path.
+ * @param  {Array} matrix array of arrays, w/
+ * layers or not
+ * @param {Object} opts an object containing the
+ * options for the path generation. It must be
+ * filled with: start, end, size
+ * @return {String}        the path in gCode or
+ * svg path code
+ */
+Pbpf.prototype.buildPath = function (matrix, opts) {
+  if (!opts)
+    throw new Error('A second argument (opts) must be provided.');
+
+  var grid = new PF.Grid(matrix.length, matrix[0].length, matrix);
+  var finder = new PF.AStarFinder({
+    allowDiagonal: true,
+    dontCrossCorners: true
+  });
+  var path = finder.findPath(opts.start[0], opts.start[1],
+                             opts.end[0], opts.end[1],
+                             grid);
+
+  if (path)
+    path = PF.Util.compressPath(path);
+
+  return path;
+};
+
+/**
+ * Given a path (array of points in the space),
+ * generates the path representation depending
+ * on type (svg or gcode).
+ * @param  {Array} path array of points
+ * representing the path
+ * @param  {string|null} type the type of path
+ * that we want to get the representation
+ * (gcode|svg)
+ * @return {string}      the representation.
+ */
+Pbpf.prototype.buildPathRepr = function (path, type) {
+
+}
 
 module.exports = {
   Pbpf: Pbpf,

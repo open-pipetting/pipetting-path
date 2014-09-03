@@ -104,4 +104,34 @@ describe('PBPF', function() {
       assert.deepEqual(actual, expected);
     });
   });
+
+  describe('.buildPath', function() {
+    it('should only return 2 points if straight line is the final path ', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+
+      var path = pbpf.buildPath(matrix, {start: [0,0], end: [0,3], size: 1});
+
+      assert.equal(path.length, 2);
+    });
+
+    it('should have more than 2 points if there\'s an obstacle in the straight path', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [1,1,1,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+
+      var path = pbpf.buildPath(matrix, {start: [0,0], end: [0,3], size: 1});
+
+      assert(path.length > 2);
+    });
+  });
 });
