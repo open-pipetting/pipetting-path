@@ -1,15 +1,10 @@
-function generateGrid(id, width, height, matrix) {
+function genGrid(id, width, height, matrix) {
 	var squareSize = 36.5;
 	var iN = matrix[0].length;
 	var jN = matrix.length;
 	var x = d3.scale.linear()
 		.domain([0, iN])
 		.range([squareSize/2, squareSize * iN]);
-
-	// we may need this
-	var y = d3.scale.linear()
-		.domain([0, jN])
-		.range([squareSize/2, squareSize * jN]);
 
 	var colors = {
 		selected: 'rgb(0, 255, 255)',
@@ -27,7 +22,7 @@ function generateGrid(id, width, height, matrix) {
 		.enter().append("svg:g")
 		.attr("class", "row");
 
-	var cols = row.selectAll(".cell")
+	var cells = row.selectAll(".cell")
 		.data(function (d) { return d; })
 		.enter().append("svg:rect")
 		.attr("class", "cell")
@@ -48,25 +43,8 @@ function generateGrid(id, width, height, matrix) {
 		})
 		.style("stroke", '#555');
 
-	// d3.selectAll('.cell')
-	// 	.each(function (d, i) {
-	// 		d3.select(this);
-	// 	});
-
-	return cols;
+	return cells;
 }
-
-var path = [
-	[1,2],
-	[1,1],
-];
-// 	[2,1],
-// 	[3,1],
-// 	[3,2],
-// 	[4,2]
-// ];
-
-
 
 function coordsToMatrix (coords, mi, mj) {
 	var matrix = [];
@@ -86,8 +64,8 @@ function coordsToMatrix (coords, mi, mj) {
 }
 
 
-function highlightPath (cols, path) {
-	cols
+function highlightPath (cells, path) {
+	cells
 		.data(function (d, i) { return d; })
 		.style('fill', function (d, i, j){
 			for (var k in path)

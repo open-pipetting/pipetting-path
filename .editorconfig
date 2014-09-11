@@ -11,3 +11,9 @@ insert_final_newline = true
 
 [*.js]
 indent_style = space
+
+[*.jsx]
+indent_style = space
+
+[*.html]
+indent_style = space
