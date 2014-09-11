@@ -104,7 +104,7 @@ Pbpf.prototype.addLayers = function (matrix, layers) {
  * layers or not
  * @param {Object} opts an object containing the
  * options for the path generation. It must be
- * filled with: start, end, size
+ * filled with: start, end
  * @return {String}        the path in gCode or
  * svg path code
  */
@@ -138,9 +138,12 @@ Pbpf.prototype.buildPath = function (matrix, opts) {
  * (gcode|svg)
  * @return {string}      the representation.
  */
-Pbpf.prototype.buildPathRepr = function (path, type) {
+Pbpf.prototype.buildPathRepr = function (path, size, type) {
+  var i = 0;
+  var strs = [];
 
-}
+
+};
 
 module.exports = {
   Pbpf: Pbpf,

@@ -115,7 +115,8 @@ describe('PBPF', function() {
         [0,0,0,0,0],
       ];
 
-      var path = pbpf.buildPath(matrix, {start: [0,0], end: [0,3], size: 1});
+      var cfg = {start: [0,0], end: [0,3], size: 1};
+      var path = pbpf.buildPath(matrix, cfg);
 
       assert.equal(path.length, 2);
     });
@@ -128,8 +129,8 @@ describe('PBPF', function() {
         [0,0,0,0,0],
         [0,0,0,0,0],
       ];
-
-      var path = pbpf.buildPath(matrix, {start: [0,0], end: [0,3], size: 1});
+      var cfg = {start: [0,0], end: [0,3], size: 1};
+      var path = pbpf.buildPath(matrix, cfg);
 
       assert(path.length > 2);
     });
