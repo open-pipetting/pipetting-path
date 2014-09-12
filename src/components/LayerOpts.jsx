@@ -15,6 +15,7 @@ var STRING_OR_NUMBER = React.PropTypes.oneOfType([
 
 var LayerOpts = React.createClass({
   propTypes: {
+    identifier: React.PropTypes.number.isRequired,
     width: STRING_OR_NUMBER,
     height: STRING_OR_NUMBER,
     thickness: STRING_OR_NUMBER,
@@ -32,6 +33,7 @@ var LayerOpts = React.createClass({
   getInitialState () {
     return {
       layer: {
+        id: this.props.identifier,
         width: this.props.width,
         height: this.props.height,
         thickness: this.props.thickness
@@ -39,7 +41,7 @@ var LayerOpts = React.createClass({
     };
   },
 
-  notifyLayerChange: _.debounce(() => {
+  notifyLayerChange: _.debounce(function () {
     if (this.props.onLayerChange)
       this.props.onLayerChange(this.state.layer);
   }, 300),
