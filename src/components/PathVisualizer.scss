@@ -1,0 +1,21 @@
+@import 'base';
+
+$colorList: (
+  ("available", $colorAvailable),
+  ("barrier",$colorBarrier),
+  ("path",$colorPath),
+  ("pipette",$colorPipette)
+);
+
+.PathVisualizer {
+  .Cell {
+    @each $colorMap in $colorList {
+      $state: nth($colorMap, 1);
+      $color: nth($colorMap, 2);
+
+      &.#{$state} {
+        fill: $color;
+      }
+    }
+  }
+}
