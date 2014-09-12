@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   entry: './src/app.jsx',
   output: {
@@ -6,7 +8,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.css/, loader: 'style-loader!css-loader'},
+      {test: /\.css$/, loader: 'style!css'},
+      {test: /\.scss$/, loader: 'style!css!sass?' +
+                                'includePaths[]=' +
+                                __dirname + '/src'},
       {test: /\.(js|jsx)$/, loader: 'jsx-loader?harmony'}
     ]
   }

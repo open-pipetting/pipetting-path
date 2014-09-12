@@ -4,9 +4,12 @@
 
 'use strict';
 
+require('./PathVisualizer.scss');
+
 var React = require('react');
 var d3 = require('d3');
 var _ = require('lodash');
+
 
 var Svg = React.createClass({
   propTypes: {
@@ -17,7 +20,8 @@ var Svg = React.createClass({
   render () {
     return (
       <svg width={this.props.width}
-           height={this.props.height}>
+           height={this.props.height}
+           className="PathVisualizer">
         {this.props.children}
       </svg>
     );
@@ -29,17 +33,17 @@ var Cell = React.createClass({
     x: React.PropTypes.number.isRequired,
     y: React.PropTypes.number.isRequired,
     size: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string.isRequired,
+    state: React.PropTypes.string.isRequired,
     key: React.PropTypes.number.isRequired
   },
 
   render () {
     return (
-      <rect x={this.props.x}
+      <rect className={"Cell " + this.props.state}
+            x={this.props.x}
             y={this.props.y}
             width={this.props.size}
             height={this.props.size}
-            fill={this.props.color}
             key={this.props.key} />
     );
   }
@@ -55,13 +59,12 @@ var Row = React.createClass({
   render () {
     var range = d3.scale.linear()
       .domain([0, this.props.dataRow.length])
-      .range([this.props.squareSize/2,
-              this.props.squareSize * this.props.dataRow.length]);
+      .range([0, this.props.squareSize * this.props.dataRow.length]);
 
     var cells = _.map(this.props.dataRow, (cel, j) =>
       <Cell x={range(j)}
             y={range(this.props.key)}
-            color={"green"}
+            state={"available"}
             size={this.props.squareSize}
             key={this.props.key + 1 + j} />
     );
@@ -95,7 +98,7 @@ var Grid = React.createClass({
     );
 
     return (
-      <g stroke={this.props.color}>
+      <g className="Grid" stroke={this.props.color}>
         {rows}
       </g>
     );
@@ -113,7 +116,8 @@ var PathVisualizer = React.createClass({
     var height = this.props.squareSize * this.props.matrix.length;
 
     return (
-      <Svg width={width} height={height}>
+      <Svg width={width}
+           height={height}>
         <Grid matrix={this.props.matrix}
               squareSize={this.props.squareSize} />
       </Svg>
