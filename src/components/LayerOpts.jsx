@@ -6,7 +6,7 @@
 
 var React = require('react');
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
-var _ = require('underscore');
+var _ = require('lodash');
 
 var STRING_OR_NUMBER = React.PropTypes.oneOfType([
   React.PropTypes.string,

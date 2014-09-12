@@ -6,7 +6,7 @@
 
 var React = require('react');
 var d3 = require('d3');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var Svg = React.createClass({
   propTypes: {
@@ -78,39 +78,42 @@ var Grid = React.createClass({
   propTypes: {
     matrix: React.PropTypes.array.isRequired,
     squareSize: React.PropTypes.number.isRequired,
+    color: React.PropTypes.string
+  },
+
+  getDefaultProps () {
+    return {
+      color: 'black'
+    }
   },
 
   render () {
     var rows = _.map(this.props.matrix, (row, i) =>
       <Row key={i}
            dataRow={row}
-           squareSize={this.props.squareSize}
-           range={this.props.range} />
+           squareSize={this.props.squareSize} />
     );
 
     return (
-      <g stroke="black">{rows}</g>
+      <g stroke={this.props.color}>
+        {rows}
+      </g>
     );
   }
 });
 
 var PathVisualizer = React.createClass({
   propTypes: {
-    width: React.PropTypes.number.isRequired,
-    height: React.PropTypes.number.isRequired,
-    matrix: React.PropTypes.array.isRequired,
-    squareSize: React.PropTypes.number
-  },
-
-  getDefaultProps () {
-    return {
-      squareSize: 50
-    };
+    squareSize: React.PropTypes.number.isRequired,
+    matrix: React.PropTypes.array.isRequired
   },
 
   render () {
+    var width = this.props.squareSize * this.props.matrix[0].length;
+    var height = this.props.squareSize * this.props.matrix.length;
+
     return (
-      <Svg width={this.props.width} height={this.props.height}>
+      <Svg width={width} height={height}>
         <Grid matrix={this.props.matrix}
               squareSize={this.props.squareSize} />
       </Svg>

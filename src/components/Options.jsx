@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
+var _ = require('lodash');
 var LayerOpts = require('./LayerOpts.jsx');
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
 

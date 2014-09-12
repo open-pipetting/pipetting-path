@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var PathVisualizer = require('./components/PathVisualizer.jsx');
 var Options = require('./components/Options.jsx');
@@ -13,6 +13,25 @@ var Options = require('./components/Options.jsx');
 var matrix = [
     [0, 0, 0, 1, 0],
     [1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
     [0, 0, 1, 0, 0],
   ];
 
@@ -22,7 +41,7 @@ var matrix = [
 React.renderComponent(
   <div>
     <Options />
-    <PathVisualizer width={500} height={600} matrix={matrix} />
+    <PathVisualizer squareSize={10} matrix={matrix} />
   </div>,
   document.querySelector('#chart')
 );

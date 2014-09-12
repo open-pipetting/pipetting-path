@@ -8,7 +8,7 @@
   "scripts": {
     "test": "mocha tests",
     "build": "webpack -p",
-    "start": "webpack -d --watch",
+    "start": "webpack -d --watch"
   },
   "devDependencies": {
     "css-loader": "^0.8.0",
@@ -18,11 +18,11 @@
     "jsx-loader": "^0.11.0",
     "mocha": "^1.21.4",
     "style-loader": "^0.8.0",
-    "underscore": "^1.7.0",
     "webpack": "^1.4.0-beta5"
   },
   "dependencies": {
     "d3": "^3.4.11",
+    "lodash": "^2.4.1",
     "pathfinding": "^0.4.12",
     "react": "^0.11.1",
     "similar-to": "0.0.1"
