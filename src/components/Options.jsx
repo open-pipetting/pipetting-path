@@ -23,7 +23,7 @@ var Options = React.createClass({
     };
   },
 
-  componentWillUpdate () {
+  componentDidUpdate () {
     if (this.props.onOptionsChange)
       this.props.onOptionsChange(this.state);
   },

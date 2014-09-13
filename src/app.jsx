@@ -10,18 +10,35 @@ var PathVisualizer = require('./components/PathVisualizer.jsx');
 var Options = require('./components/Options.jsx');
 var Pbpf = require('./pbpf').Pbpf;
 
-
 var pbpf = new Pbpf();
-var matrix = pbpf.generate({width: 10, height: 20});
+
+var PipettingPath = React.createClass({
+  /**
+   * Simply impractical. SO MUCH dom to deal
+   * with.
+   */
+
+  // handleOptionsChange (opts) {
+  //   var matrix = pbpf.generate(opts);
+
+  //   this.setState({
+  //     matrix: matrix
+  //   });
+  // },
+
+  render () {
+    return (
+      <div>
+        <Options onOptionsChange={this.handleOptionsChange} />
+        <PathVisualizer squareSize={10} matrix={pbpf.generate({width: 10, height: 10})} />
+      </div>
+    );
+  }
+});
 
 
-// TODO (ciro) we could determine that width and
-// height only by passing the squareSize.
 React.renderComponent(
-  <div>
-    <Options />
-    <PathVisualizer squareSize={10} matrix={matrix} />
-  </div>,
+  <PipettingPath />,
   document.querySelector('#chart')
 );
 
