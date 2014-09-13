@@ -4,51 +4,45 @@
 
 'use strict';
 
-var React = require('react');
 var _ = require('lodash');
-var PathVisualizer = require('./components/PathVisualizer.jsx');
-var Options = require('./components/Options.jsx');
+var React = require('react');
 var Pbpf = require('./pbpf').Pbpf;
+var utils = require('./utils');
+var Options = require('./components/Options.jsx');
+var PathVisualizer = require('./components/PathVisualizer.jsx');
 
 var pbpf = new Pbpf();
 var initialMatrix = pbpf.generate({width: 10, height: 10});
 
 var PipettingPath = React.createClass({
-  /**
-   * Simply impractical. SO MUCH dom to deal
-   * with.
-   */
-
-   getInitialState () {
+  getInitialState () {
     return {
       matrix: initialMatrix
     }
-   },
+  },
 
-   componentDidMount () {
-    setInterval(() => {
-      this.setState({
-        matrix: pbpf.addLayers(initialMatrix, [{
-          height: Math.random() * 10 | 0,
-          width: Math.random() * 10 | 0,
-          thickness: 1
-        }])
-      });
-    }, 2000);
-   },
+  handleOptionsChange (opts) {
+    initialMatrix = pbpf.generate(opts);
 
-  // handleOptionsChange (opts) {
-  //   var matrix = pbpf.generate(opts);
+    this.setState({
+      matrix: initialMatrix
+    });
+  },
 
-  //   this.setState({
-  //     matrix: matrix
-  //   });
-  // },
+  handleLayersChange (opts) {
+    var clonedMatrix = utils.clone(initialMatrix);
+    var newMatrix = pbpf.addLayers(clonedMatrix, opts.layers);
+
+    this.setState({
+      matrix: newMatrix
+    });
+  },
 
   render () {
     return (
       <div>
-        <Options onOptionsChange={this.handleOptionsChange} />
+        <Options onOptionsChange={this.handleOptionsChange}
+                 onLayersChange={this.handleLayersChange} />
         <PathVisualizer squareSize={10} matrix={this.state.matrix} />
       </div>
     );

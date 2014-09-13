@@ -11,21 +11,17 @@ var clone = (obj) => JSON.parse(JSON.stringify(obj));
 
 var Options = React.createClass({
   propTypes: {
-    onOptionsChange: React.PropTypes.func
+    onOptionsChange: React.PropTypes.func,
+    onLayersChange: React.PropTypes.func
   },
 
   getInitialState () {
     return {
-      width: "",
-      height: "",
-      precision: "",
+      width: 10,
+      height: 10,
+      precision: 1,
       layers: []
     };
-  },
-
-  componentDidUpdate () {
-    if (this.props.onOptionsChange)
-      this.props.onOptionsChange(this.state);
   },
 
   handleChange (e) {
@@ -33,6 +29,9 @@ var Options = React.createClass({
 
     newState[e.target.dataset.name] = e.target.value;
     this.setState(newState);
+
+    if (this.props.onOptionsChange)
+      this.props.onOptionsChange(this.state);
   },
 
   handleLayerChange (layer) {
@@ -40,6 +39,9 @@ var Options = React.createClass({
 
     newState.layers[layer.id] = layer;
     this.setState(newState);
+
+    if (this.props.onLayersChange)
+      this.props.onLayersChange(this.state);
   },
 
   handleClick (e) {
@@ -49,9 +51,9 @@ var Options = React.createClass({
       case 'add':
         newLayers.push({
           id: this.state.layers.length,
-          width: '',
-          height: '',
-          thickness: ''
+          width: 0,
+          height: 0,
+          thickness: 1
         });
         break;
       case 'remove':

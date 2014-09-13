@@ -56,15 +56,13 @@ Pbpf.prototype.isValidConfig = function (opts) {
 Pbpf.prototype.generate = function (opts) {
   var matrix = [];
 
-
   // fills w/ rows
   for (var j = 0; j < opts.height; j++) {
     var arr = [];
 
     // fills w/ columns
-    for (var i = 0; i < opts.width; i++) {
+    for (var i = 0; i < opts.width; i++)
       arr.push(0);
-    }
 
     matrix.push(arr);
   }
@@ -80,6 +78,7 @@ Pbpf.prototype.generate = function (opts) {
 Pbpf.prototype.addLayers = function (matrix, layers) {
   var h = matrix.length;
   var w = matrix[0].length;
+
 
   layers.map(function (layer) {
     return {
@@ -105,10 +104,12 @@ Pbpf.prototype.addLayers = function (matrix, layers) {
  * @param {Object} opts an object containing the
  * options for the path generation. It must be
  * filled with: start, end
+ * @param {boolean} compress if the path should
+ * be compressed
  * @return {String}        the path in gCode or
  * svg path code
  */
-Pbpf.prototype.buildPath = function (matrix, opts) {
+Pbpf.prototype.buildPath = function (matrix, opts, compress) {
   if (!opts)
     throw new Error('A second argument (opts) must be provided.');
 
@@ -121,7 +122,7 @@ Pbpf.prototype.buildPath = function (matrix, opts) {
                              opts.end[0], opts.end[1],
                              grid);
 
-  if (path)
+  if (path && compress)
     path = PF.Util.compressPath(path);
 
   return path;
@@ -142,6 +143,7 @@ Pbpf.prototype.buildPathRepr = function (path, size, type) {
   var i = 0;
   var strs = [];
 
+  //TODO (ciro)
 
 };
 

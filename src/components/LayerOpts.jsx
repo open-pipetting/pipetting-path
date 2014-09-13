@@ -24,9 +24,9 @@ var LayerOpts = React.createClass({
 
   getDefaultProps () {
     return {
-      width: '',
-      height: '',
-      thickness: ''
+      width: 0,
+      height: 0,
+      thickness: 1
     };
   },
 
@@ -50,7 +50,7 @@ var LayerOpts = React.createClass({
     var name = e.target.dataset.name;
     var newLayer = clone(this.state.layer);
 
-    newLayer[name] = e.target.value;
+    newLayer[name] = +e.target.value;
 
     this.setState({
       layer: newLayer
