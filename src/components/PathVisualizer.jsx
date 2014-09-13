@@ -56,18 +56,25 @@ var Row = React.createClass({
     key: React.PropTypes.number.isRequired,
   },
 
+  STATES: {
+    '0': 'available',
+    '1': 'barrier',
+    '2': 'path',
+    '3': 'pipette'
+  },
+
   render () {
     var range = d3.scale.linear()
       .domain([0, this.props.dataRow.length])
       .range([0, this.props.squareSize * this.props.dataRow.length]);
 
-    var cells = _.map(this.props.dataRow, (cel, j) =>
-      <Cell x={range(j)}
-            y={range(this.props.key)}
-            state={"available"}
-            size={this.props.squareSize}
-            key={this.props.key + 1 + j} />
-    );
+    var cells = _.map(this.props.dataRow, (cel, j) => {
+      return <Cell x={range(j)}
+                   y={range(this.props.key)}
+                   state={this.STATES[cel]}
+                   size={this.props.squareSize}
+                   key={this.props.key + 1 + j} />
+    });
 
     return (
       <g className="Row">
