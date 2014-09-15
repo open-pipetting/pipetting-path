@@ -2,9 +2,10 @@
 
 $colorList: (
   ("available", $colorAvailable),
-  ("barrier",$colorBarrier),
-  ("path",$colorPath),
-  ("pipette",$colorPipette)
+  ("barrier", $colorBarrier),
+  ("path", $colorPath),
+  ("pipette", $colorPipette),
+  ("component", $colorComponent)
 );
 
 .PathVisualizer {

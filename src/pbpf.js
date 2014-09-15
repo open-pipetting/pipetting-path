@@ -14,7 +14,8 @@ var BASE_OPTS = {
     {
       height: 0,
       width: 0,
-      thickness: 0
+      thickness: 0,
+      right: 0
     }
   ],
   pipette: {
@@ -90,16 +91,16 @@ Pbpf.prototype.addLayers = function (matrix, layers) {
       right: layer.right
     };
   }).forEach(function (row) {
+    var lastWIndex = (matrix[0].length - 1);
+
     while (row.thickness--) {
       for (var i in matrix[row.row + row.thickness]) {
         var j;
         if (row.right) {
-          j = (matrix[0].length - 1) - i;
+          j = lastWIndex - i;
 
-          if (j > (matrix[0].length - 1) - row.width) {
+          if (j > lastWIndex - row.width)
             matrix[row.row + row.thickness][j] = 1;
-          }
-
         } else {
           if (i < row.width)
             matrix[row.row + row.thickness][i] = 1;
@@ -112,8 +113,10 @@ Pbpf.prototype.addLayers = function (matrix, layers) {
 };
 
 /**
- * Given a starting and an ending poit,
- * generates the path.
+ * Given a starting and an ending point,
+ * generates the path. It considers that cells
+ * with 0 as its values are available.
+ *
  * @param  {Array} matrix array of arrays, w/
  * layers or not
  * @param {Object} opts an object containing the

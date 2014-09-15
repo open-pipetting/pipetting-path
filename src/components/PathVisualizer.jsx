@@ -60,7 +60,8 @@ var Row = React.createClass({
     '0': 'available',
     '1': 'barrier',
     '2': 'path',
-    '3': 'pipette'
+    '3': 'pipette',
+    '4': 'component'
   },
 
   render () {
