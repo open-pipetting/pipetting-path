@@ -60,6 +60,31 @@ describe('PBPF', function() {
       assert.deepEqual(actual, expected);
     });
 
+    it('right side', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var expected = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,1,1,1],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var actual = pbpf.addLayers(matrix, [{
+        height: 2,
+        width: 3,
+        thickness: 1,
+        right: true
+      }]);
+
+      assert.deepEqual(actual, expected);
+    });
+
     it('add a 2-thick layer to a matrix', function() {
       var matrix = [
         [0,0,0,0,0],
@@ -115,10 +140,27 @@ describe('PBPF', function() {
         [0,0,0,0,0],
       ];
 
+      var compress = true;
       var cfg = {start: [0,0], end: [0,3], size: 1};
-      var path = pbpf.buildPath(matrix, cfg);
+      var path = pbpf.buildPath(matrix, cfg, compress);
 
       assert.equal(path.length, 2);
+    });
+
+    it('form the origin to the dest, if straight line and not compressed, should have the same length', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+
+      var compress = false;
+      var cfg = {start: [0,0], end: [0,3], size: 1};
+      var path = pbpf.buildPath(matrix, cfg, compress);
+
+      assert.equal(path.length, 4);
     });
 
     it('should have more than 2 points if there\'s an obstacle in the straight path', function() {
@@ -129,8 +171,9 @@ describe('PBPF', function() {
         [0,0,0,0,0],
         [0,0,0,0,0],
       ];
+      var compress = true;
       var cfg = {start: [0,0], end: [0,3], size: 1};
-      var path = pbpf.buildPath(matrix, cfg);
+      var path = pbpf.buildPath(matrix, cfg, compress);
 
       assert(path.length > 2);
     });

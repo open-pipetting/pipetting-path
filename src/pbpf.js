@@ -71,26 +71,41 @@ Pbpf.prototype.generate = function (opts) {
 };
 
 /**
- * Given a matrix, adds some layers to it.
+ * Given a matrix, adds some layers to it
+ * (mutating the original one).
  * @param {Array} matrix array of arrays which
  * represents the pipetteer.
+ * @param {boolean} right if should be on the
+ * right (defaults to left)
  */
 Pbpf.prototype.addLayers = function (matrix, layers) {
   var h = matrix.length;
   var w = matrix[0].length;
 
-
   layers.map(function (layer) {
     return {
       row: (h - (layer.height + 1)),
       thickness: layer.thickness,
-      width: layer.width
+      width: layer.width,
+      right: layer.right
     };
   }).forEach(function (row) {
-    while (row.thickness--)
-      for (var i in matrix[row.row + row.thickness])
-        if (i < row.width)
-          matrix[row.row + row.thickness][i] = 1;
+    while (row.thickness--) {
+      for (var i in matrix[row.row + row.thickness]) {
+        var j;
+        if (row.right) {
+          j = (matrix[0].length - 1) - i;
+
+          if (j > (matrix[0].length - 1) - row.width) {
+            matrix[row.row + row.thickness][j] = 1;
+          }
+
+        } else {
+          if (i < row.width)
+            matrix[row.row + row.thickness][i] = 1;
+        }
+      }
+    }
   });
 
   return matrix;
