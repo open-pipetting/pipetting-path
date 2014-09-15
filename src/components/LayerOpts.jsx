@@ -13,12 +13,19 @@ var STRING_OR_NUMBER = React.PropTypes.oneOfType([
   React.PropTypes.number
 ]);
 
+var BOOL_OR_NUMBER = React.PropTypes.oneOfType([
+  React.PropTypes.bool,
+  React.PropTypes.number
+]);
+
+
 var LayerOpts = React.createClass({
   propTypes: {
     identifier: React.PropTypes.number.isRequired,
     width: STRING_OR_NUMBER,
     height: STRING_OR_NUMBER,
     thickness: STRING_OR_NUMBER,
+    right: BOOL_OR_NUMBER,
     onLayerChange: React.PropTypes.func
   },
 
@@ -26,7 +33,8 @@ var LayerOpts = React.createClass({
     return {
       width: 0,
       height: 0,
-      thickness: 1
+      thickness: 1,
+      right: false
     };
   },
 
@@ -36,7 +44,8 @@ var LayerOpts = React.createClass({
         id: this.props.identifier,
         width: this.props.width,
         height: this.props.height,
-        thickness: this.props.thickness
+        thickness: this.props.thickness,
+        right: this.props.right
       }
     };
   },
@@ -47,10 +56,13 @@ var LayerOpts = React.createClass({
   }, 300),
 
   handleChange (e) {
-    var name = e.target.dataset.name;
     var newLayer = clone(this.state.layer);
+    var name = e.target.dataset.name;
 
-    newLayer[name] = +e.target.value;
+    if (name !== 'right')
+      newLayer[name] = +e.target.value
+    else
+      newLayer[name] = e.target.checked;
 
     this.setState({
       layer: newLayer
@@ -80,6 +92,11 @@ var LayerOpts = React.createClass({
                onChange={this.handleChange}
                value={this.state.layer.thickness}
                placeholder="how thick" />
+        <label>Right</label>
+        <input type="checkbox"
+               data-name="right"
+               onChange={this.handleChange}
+               checked={this.state.layer.right} />
       </div>
     );
   }

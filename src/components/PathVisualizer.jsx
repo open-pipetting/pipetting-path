@@ -88,13 +88,6 @@ var Grid = React.createClass({
   propTypes: {
     matrix: React.PropTypes.array.isRequired,
     squareSize: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string
-  },
-
-  getDefaultProps () {
-    return {
-      color: 'black'
-    }
   },
 
   render () {
@@ -105,7 +98,7 @@ var Grid = React.createClass({
     );
 
     return (
-      <g className="Grid" stroke={this.props.color}>
+      <g>
         {rows}
       </g>
     );
@@ -125,7 +118,8 @@ var PathVisualizer = React.createClass({
     return (
       <Svg width={width}
            height={height}>
-        <Grid matrix={this.props.matrix}
+        <Grid className="Grid"
+              matrix={this.props.matrix}
               squareSize={this.props.squareSize} />
       </Svg>
     );

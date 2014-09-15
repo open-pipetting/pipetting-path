@@ -8,6 +8,10 @@ $colorList: (
 );
 
 .PathVisualizer {
+  .Grid {
+    stroke: $colorGrid;
+  }
+
   .Cell {
     @each $colorMap in $colorList {
       $state: nth($colorMap, 1);
