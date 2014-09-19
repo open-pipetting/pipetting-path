@@ -8,8 +8,6 @@ require('./PathVisualizer.scss');
 
 var React = require('react');
 var d3 = require('d3');
-var _ = require('lodash');
-
 
 var Svg = React.createClass({
   propTypes: {
@@ -69,7 +67,7 @@ var Row = React.createClass({
       .domain([0, this.props.dataRow.length])
       .range([0, this.props.squareSize * this.props.dataRow.length]);
 
-    var cells = _.map(this.props.dataRow, (cel, j) => {
+    var cells = this.props.dataRow.map((cel, j) => {
       return <Cell x={range(j)}
                    y={range(this.props.key)}
                    state={this.STATES[cel]}
@@ -92,7 +90,7 @@ var Grid = React.createClass({
   },
 
   render () {
-    var rows = _.map(this.props.matrix, (row, i) =>
+    var rows = this.props.matrix.map((row, i) =>
       <Row key={i}
            dataRow={row}
            squareSize={this.props.squareSize} />

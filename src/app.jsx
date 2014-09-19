@@ -4,7 +4,6 @@
 
 'use strict';
 
-var _ = require('lodash');
 var React = require('react');
 var pbpf = require('./pbpf');
 var utils = require('./utils');
