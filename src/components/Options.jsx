@@ -28,20 +28,18 @@ var Options = React.createClass({
     var newState = clone(this.state);
 
     newState[e.target.dataset.name] = e.target.value;
-    this.setState(newState);
 
-    if (this.props.onOptionsChange)
-      this.props.onOptionsChange(this.state);
+    this.setState(newState);
+    this.props.onOptionsChange && this.props.onOptionsChange(newState);
   },
 
   handleLayerChange (layer) {
     var newState = clone(this.state)
 
     newState.layers[layer.id] = layer;
-    this.setState(newState);
 
-    if (this.props.onLayersChange)
-      this.props.onLayersChange(this.state);
+    this.setState(newState);
+    this.props.onLayersChange && this.props.onLayersChange(newState);
   },
 
   handleClick (e) {

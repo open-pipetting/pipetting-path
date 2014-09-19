@@ -33,6 +33,8 @@ var PipettingPath = React.createClass({
     var clonedMatrix = utils.clone(initialMatrix);
     var newMatrix = pbpf.addLayers(clonedMatrix, opts.layers);
 
+    console.log(opts.layers);
+
     this.setState({
       matrix: newMatrix
     });

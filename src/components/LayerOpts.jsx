@@ -50,11 +50,6 @@ var LayerOpts = React.createClass({
     };
   },
 
-  notifyLayerChange: _.debounce(function () {
-    if (this.props.onLayerChange)
-      this.props.onLayerChange(this.state.layer);
-  }, 300),
-
   handleChange (e) {
     var newLayer = clone(this.state.layer);
     var name = e.target.dataset.name;
@@ -64,11 +59,11 @@ var LayerOpts = React.createClass({
     else
       newLayer[name] = e.target.checked;
 
+    this.props.onLayerChange && this.props.onLayerChange(newLayer);
+
     this.setState({
       layer: newLayer
     });
-
-    this.notifyLayerChange();
   },
 
   render () {
