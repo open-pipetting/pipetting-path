@@ -1,32 +1,20 @@
 'use strict';
 
-var PBPF = require('../src/pbpf')
+var pbpf = require('../src/pbpf')
   , assert = require('assert')
-  , Pbpf = PBPF.Pbpf
-  , BASE_OPTS = PBPF.BASE_OPTS;
+  , utils = require('../src/utils');
+
 
 describe('PBPF', function() {
-  var pbpf;
-
   it('should be requirable', function() {
-    assert(!!PBPF);
-  });
-
-  describe('.constructor', function() {
-    it('should not throw when no args specified', function() {
-      assert.doesNotThrow(Pbpf.bind(null));
-    });
-  });
-
-  beforeEach(function () {
-    pbpf = new Pbpf();
+    assert(!!pbpf);
   });
 
   describe('.generate', function() {
     var opts;
 
     beforeEach(function () {
-      opts = BASE_OPTS;
+      opts = pbpf.BASE_OPTS;
     });
 
     it('should create a matrix with the corret width and height', function() {
@@ -176,6 +164,30 @@ describe('PBPF', function() {
       var path = pbpf.buildPath(matrix, cfg, compress);
 
       assert(path.length > 2);
+    });
+  });
+
+  describe('.addPath', function() {
+    it('add a path as expected', function() {
+      var matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+      var expected = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [2,2,2,2,2],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+      ];
+
+      var path = pbpf.buildPath(matrix, {start: [2, 0], end: [2, 4]})
+      var actual = pbpf.addPath(matrix, path);
+
+      assert.deepEqual(actual, expected);
     });
   });
 });

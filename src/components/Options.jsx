@@ -5,9 +5,8 @@
 'use strict';
 
 var React = require('react');
-var _ = require('lodash');
 var LayerOpts = require('./LayerOpts.jsx');
-var clone = (obj) => JSON.parse(JSON.stringify(obj));
+var clone = require('../utils').clone;
 
 var Options = React.createClass({
   propTypes: {
@@ -43,11 +42,11 @@ var Options = React.createClass({
   },
 
   handleClick (e) {
-    var newLayers = this.state.layers.slice();
+    var newState = clone(this.state);
 
     switch (e.target.dataset.type) {
       case 'add':
-        newLayers.push({
+        newState.layers.push({
           id: this.state.layers.length,
           width: 0,
           height: 0,
@@ -55,17 +54,16 @@ var Options = React.createClass({
         });
         break;
       case 'remove':
-        newLayers.splice(e.target.dataset.id, 1);
+        newState.layers.splice(e.target.dataset.id, 1);
         break;
     }
 
-    this.setState({
-      layers: newLayers
-    });
+    this.setState(newState);
+    this.props.onLayersChange && this.props.onLayersChange(newState);
   },
 
   render () {
-    var layers = _.map(this.state.layers, (layer, i) =>
+    var layers = this.state.layers.map((layer, i) =>
       <li key={i}>
         <button onClick={this.handleClick}
                 data-type="remove">

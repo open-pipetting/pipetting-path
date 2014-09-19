@@ -1,9 +1,17 @@
 'use strict';
 
-var pp = (matrix) => {matrix.forEach((row)=> {console.log(row);})};
-var clone = (obj) => JSON.parse(JSON.stringify(obj));
-
 module.exports = {
-  pp: pp,
-  clone: clone
+  pp: function (matrix) {
+    var repr = '';
+
+    matrix.forEach(function (row) {
+      repr += row.join(',') + '\n';
+    });
+
+    return repr;
+  },
+
+  clone: function (obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
 };

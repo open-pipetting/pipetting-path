@@ -6,12 +6,11 @@
 
 var _ = require('lodash');
 var React = require('react');
-var Pbpf = require('./pbpf').Pbpf;
+var pbpf = require('./pbpf');
 var utils = require('./utils');
 var Options = require('./components/Options.jsx');
 var PathVisualizer = require('./components/PathVisualizer.jsx');
 
-var pbpf = new Pbpf();
 var initialMatrix = pbpf.generate({width: 10, height: 10});
 
 var PipettingPath = React.createClass({
@@ -32,8 +31,6 @@ var PipettingPath = React.createClass({
   handleLayersChange (opts) {
     var clonedMatrix = utils.clone(initialMatrix);
     var newMatrix = pbpf.addLayers(clonedMatrix, opts.layers);
-
-    console.log(opts.layers);
 
     this.setState({
       matrix: newMatrix
