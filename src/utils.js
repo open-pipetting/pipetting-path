@@ -16,8 +16,10 @@ module.exports = {
   },
 
   scale: {
-    linear: function () {
-
+    linear: function (d1, d2) {
+      return function (num) {
+          return d2[0] + (d2[1] - d2[0]) * ((num-d1[0])/(d1[1]-d1[0]));
+      };
     }
   }
 };

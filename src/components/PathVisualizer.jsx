@@ -7,7 +7,7 @@
 require('./PathVisualizer.scss');
 
 var React = require('react');
-var d3 = require('d3');
+var utils = require('../utils');
 
 var Svg = React.createClass({
   propTypes: {
@@ -63,9 +63,10 @@ var Row = React.createClass({
   },
 
   render () {
-    var range = d3.scale.linear()
-      .domain([0, this.props.dataRow.length])
-      .range([0, this.props.squareSize * this.props.dataRow.length]);
+    var range = utils
+      .scale
+      .linear([0, this.props.dataRow.length],
+              [0, this.props.squareSize * this.props.dataRow.length]);
 
     var cells = this.props.dataRow.map((cel, j) => {
       return <Cell x={range(j)}
