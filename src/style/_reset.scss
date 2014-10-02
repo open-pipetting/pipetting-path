@@ -1,0 +1,15 @@
+@import 'base';
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $base__font-size;
+}
+
+body {
+  font-family: $base__font;
+  margin: auto;
+  width: 60rem;
+}

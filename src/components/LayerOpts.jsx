@@ -17,7 +17,6 @@ var BOOL_OR_NUMBER = React.PropTypes.oneOfType([
   React.PropTypes.number
 ]);
 
-
 var LayerOpts = React.createClass({
   propTypes: {
     identifier: React.PropTypes.number.isRequired,

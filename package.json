@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "pathfinding": "^0.4.12",
-    "react": "^0.11.1",
+    "react": "^0.11.2",
+    "react-matrix": "0.0.5",
     "similar-to": "0.0.1"
   }
 }

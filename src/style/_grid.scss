@@ -1,0 +1,36 @@
+$grid__columns--number: 8;
+
+.grid {
+  width: 100%;
+  max-width: 120rem;
+}
+
+.grid__row:before,
+.grid__row:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+@mixin col($index) {
+  float: left;
+  min-height: .1rem;
+
+  width: ($index * (100 / $grid__columns--number)) * 1%;
+  padding: 1.2rem;
+}
+
+
+@for $i from 1 through $grid__columns--number {
+  .grid__col--#{$i} {
+    @include col($i);
+  }
+}
+
+@media all and (max-width:800px){
+  @for $i from 1 through $grid__columns--number {
+    .grid__col--#{$i} {
+      width: 100%;
+    }
+  }
+}
