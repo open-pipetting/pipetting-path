@@ -4,16 +4,23 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants');
 var merge = require('react/lib/merge');
+var clone = (obj) => JSON.parse(JSON.stringify(obj));
 
 // process.env.NODE_ENV !== 'web' && require('../utils/DeviceManager').init();
 
-var CHANGE_EVENT = 'change';
 var _settings = {
-  devices: [],
-  visualization: CONSTANTS.Settings.TYPE_REACT_MATRIX,
-  matrixManager: CONSTANTS.Settings.CLICK
+  width: 10,
+  height: 10,
+  precision: 1,
+  layers: []
 };
 
+var INITIAL_LAYER = {
+  width: 0,
+  height: 0,
+  thickness: 1,
+  right: false
+};
 
 /**
  * Registers itself with AppDispatcher so that
@@ -26,42 +33,35 @@ var SettingsStore = merge(EventEmitter.prototype, {
   getSettingsState: () => _settings,
 
   emitChange () {
-    this.emit(CHANGE_EVENT);
+    this.emit(CONSTANTS.CHANGE_EVENT);
   },
 
   addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
+    this.on(CONSTANTS.CHANGE_EVENT, cb);
   },
 
   removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+    this.removeListener(CONSTANTS.CHANGE_EVENT, cb);
   },
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
 
     switch (action.actionType) {
-      case CONSTANTS.Settings.ADD_DEVICE:
-        _settings.devices.push(payload.device);
-        SettingsStore.emitChange();
+      case CONSTANTS.Settings.ADD_LAYER:
+      _settings.layers.push(clone(INITIAL_LAYER));
+      SettingsStore.emitChange();
+      break;
 
-        break;
+      case CONSTANTS.Settings.REMOVE_LAYER:
+      _settings.layers.splice(action.id, 1);
+      SettingsStore.emitChange();
+      break;
 
-      case CONSTANTS.Settings.REMOVE_DEVICE:
-        delete _settings.devices[payload.id];
-        SettingsStore.emitChange();
-
-        break;
-
-      case CONSTANTS.Settings.CHANGE_VISUALIZATION:
-        _settings.visualization = action.type;
-        SettingsStore.emitChange();
-        break;
-
-      case CONSTANTS.Settings.CHANGE_MATRIX_MANAGER:
-        _settings.matrixManager = action.who;
-        SettingsStore.emitChange();
-        break;
+      case CONSTANTS.Settings.UPDATE_LAYER:
+      _settings.layers[action.layer.id] = action.layer;
+      SettingsStore.emitChange();
+      break;
     }
 
     return true;

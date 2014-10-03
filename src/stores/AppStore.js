@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Store for the whole application state.
+ */
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants');
@@ -9,7 +13,6 @@ var gui = process.env.NODE_ENV !== 'web' ?
   require('nw.gui') :
   function () {};
 
-var CHANGE_EVENT = 'change';
 var _windowState = {
   maximized: false,
 };
@@ -26,15 +29,15 @@ var AppStore = merge(EventEmitter.prototype, {
   getWindowState: () => _windowState,
 
   emitChange () {
-    this.emit(CHANGE_EVENT);
+    this.emit(CONSTANTS.CHANGE_EVENT);
   },
 
   addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
+    this.on(CONSTANTS.CHANGE_EVENT, cb);
   },
 
   removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+    this.removeListener(CONSTANTS.CHANGE_EVENT, cb);
   },
 
   dispatcherIndex: AppDispatcher.register((payload) => {

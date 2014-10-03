@@ -4,11 +4,14 @@
 
 'use strict';
 
-require('./Visualization.scss');
+if (process.env.NODE_ENV !== 'test')
+  require('./Visualization.scss');
 
-var React = require('react');
+var React = require('react/addons');
 var Matrix = require('react-matrix');
 var MatrixStore = require('../stores').Matrix;
+var SettingsStore = require('../stores').Settings;
+var update = React.addons.update;
 
 var CELL_STATES = {
   '0': 'available',
@@ -18,20 +21,38 @@ var CELL_STATES = {
 var Visualization = React.createClass({
   getInitialState () {
     return {
-      matrix: MatrixStore.getInitialMatrix()
-    }
+      matrix: MatrixStore.getMatrixState(),
+      settings: SettingsStore.getSettingsState()
+    };
   },
 
-  // handleLayersChange (opts) {
-  //   var clonedMatrix = utils.clone(initialMatrix);
-  //   var newMatrix = pbpf.addLayers(clonedMatrix, opts.layers);
+  componentDidMount () {
+    SettingsStore.addChangeListener(this.handleSettingsChange);
+    MatrixStore.addChangeListener(this.handleMatrixChange);
+  },
 
-  //   this.setState({
-  //     matrix: newMatrix
-  //   });
-  // },
+  componentDidUnmount () {
+    SettingsStore.removeChangeListener(this.handleSettingsChange);
+    MatrixStore.removeChangeListener(this.handleMatrixChange);
+  },
+
+  handleSettingsChange () {
+    this.setState(update(this.state, {settings: {$set: SettingsStore.getSettingsState()}}));
+  },
+
+  handleMatrixChange () {
+    this.setState(
+      update(this.state, {matrix: {$set: MatrixStore.getMatrixState()}})
+    );
+  },
 
   render () {
+    // TODO prepare the optimized pipeline
+    // pbpf
+    //   .addLayers()
+    //   .addPipette()
+    //   .addPath();
+
     return (
       <div>
         <h1>Visualization</h1>

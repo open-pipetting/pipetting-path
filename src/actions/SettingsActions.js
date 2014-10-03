@@ -8,37 +8,43 @@ var SettingsActions = {
    * Device specific
    */
 
-  addDevice (device) {
-    AppDispatcher.handleDeviceAction({
-      actionType: CONSTANTS.Settings.ADD_DEVICE,
-      device: device.device
-    });
-  },
+  // addDevice (device) {
+  //   AppDispatcher.handleDeviceAction({
+  //     actionType: CONSTANTS.Settings.ADD_DEVICE,
+  //     device: device.device
+  //   });
+  // },
 
-  removeDevice (id) {
-    AppDispatcher.handleDeviceAction({
-      actionType: CONSTANTS.Settings.REMOVE_DEVICE,
-      id: id
-    });
-  },
+  // removeDevice (id) {
+  //   AppDispatcher.handleDeviceAction({
+  //     actionType: CONSTANTS.Settings.REMOVE_DEVICE,
+  //     id: id
+  //   });
+  // },
 
   /**
    * View specific
    */
 
-  changeVisualization (type) {
+  addLayer () {
     AppDispatcher.handleViewAction({
-      actionType: CONSTANTS.Settings.CHANGE_VISUALIZATION,
-      type: type
+      actionType: CONSTANTS.Settings.ADD_LAYER
     });
   },
 
-  changeMatrixManager (who) {
+  removeLayer (layerId) {
     AppDispatcher.handleViewAction({
-      actionType: CONSTANTS.Settings.CHANGE_MATRIX_MANAGER,
-      who: who
+      actionType: CONSTANTS.Settings.REMOVE_LAYER,
+      id: layerId
     });
   },
+
+  updateLayer (layer) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Settings.UPDATE_LAYER,
+      layer: layer
+    });
+  }
 };
 
 module.exports = SettingsActions;

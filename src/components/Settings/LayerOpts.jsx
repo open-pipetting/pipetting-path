@@ -2,6 +2,10 @@
  * @jsx React.DOM
  */
 
+/**
+ * Represents a single Layer option.
+ */
+
 'use strict';
 
 var React = require('react');
@@ -10,12 +14,12 @@ var clone = (obj) => JSON.parse(JSON.stringify(obj));
 var STRING_OR_NUMBER = React.PropTypes.oneOfType([
   React.PropTypes.string,
   React.PropTypes.number
-]);
+]).isRequired;
 
 var BOOL_OR_NUMBER = React.PropTypes.oneOfType([
   React.PropTypes.bool,
   React.PropTypes.number
-]);
+]).isRequired;
 
 var LayerOpts = React.createClass({
   propTypes: {
@@ -24,16 +28,8 @@ var LayerOpts = React.createClass({
     height: STRING_OR_NUMBER,
     thickness: STRING_OR_NUMBER,
     right: BOOL_OR_NUMBER,
-    onLayerChange: React.PropTypes.func
-  },
 
-  getDefaultProps () {
-    return {
-      width: 0,
-      height: 0,
-      thickness: 1,
-      right: false
-    };
+    onLayerChange: React.PropTypes.func
   },
 
   getInitialState () {
@@ -49,6 +45,7 @@ var LayerOpts = React.createClass({
   },
 
   handleChange (e) {
+    //TODO acao para jogar para store
     var newLayer = clone(this.state.layer);
     var name = e.target.dataset.name;
 
@@ -68,19 +65,19 @@ var LayerOpts = React.createClass({
     return (
       <div>
         <label>Width</label>
-        <input type="text"
+        <input type="number"
                data-name="width"
                onChange={this.handleChange}
                value={this.state.layer.width}
                placeholder="how long" />
         <label>Height</label>
-        <input type="text"
+        <input type="number"
                data-name="height"
                onChange={this.handleChange}
                value={this.state.layer.height}
                placeholder="how high it is" />
         <label>Thickness</label>
-        <input type="text"
+        <input type="number"
                data-name="thickness"
                onChange={this.handleChange}
                value={this.state.layer.thickness}

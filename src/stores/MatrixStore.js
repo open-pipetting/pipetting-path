@@ -26,9 +26,7 @@ _matrix = clone(_INITIAL_MATRIX);
  * `dispatch` method.
  */
 var MatrixStore = merge(EventEmitter.prototype, {
-  getMatrix: () => _matrix,
-
-  getInitialMatrix: () => _INITIAL_MATRIX,
+  getMatrixState: () => _matrix,
 
   emitChange () {
     this.emit(CONSTANTS.CHANGE_EVENT);

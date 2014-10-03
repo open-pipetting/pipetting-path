@@ -1,9 +1,9 @@
 'use strict';
 
-var pbpf = require('../src/pbpf')
-  , assert = require('assert')
-  , utils = require('../src/utils');
+jest.autoMockOff();
 
+var pbpf = require('../pbpf')
+  , assert = require('assert');
 
 describe('PBPF', function() {
   it('should be requirable', function() {
