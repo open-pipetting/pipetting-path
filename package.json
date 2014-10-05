@@ -31,6 +31,7 @@
     "webpack": "^1.4.0-beta5"
   },
   "dependencies": {
+    "object.assign": "^1.0.1",
     "pathfinding": "^0.4.12",
     "react": "^0.11.2",
     "react-matrix": "0.0.5",

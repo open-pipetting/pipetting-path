@@ -48,21 +48,34 @@ var SettingsStore = merge(EventEmitter.prototype, {
     var action = payload.action;
 
     switch (action.actionType) {
+      case CONSTANTS.Settings.UPDATE_SETTINGS:
+      _settings = action.settings;
+      break;
+
+      case CONSTANTS.Settings.UPDATE_SIZE:
+      _settings[action.type] = action.value;
+      break;
+
+      /**
+       * All of the below should actually be
+       * removed as it is redundant regarding
+       * the state in general.
+       */
+
       case CONSTANTS.Settings.ADD_LAYER:
       _settings.layers.push(clone(INITIAL_LAYER));
-      SettingsStore.emitChange();
       break;
 
       case CONSTANTS.Settings.REMOVE_LAYER:
       _settings.layers.splice(action.id, 1);
-      SettingsStore.emitChange();
       break;
 
       case CONSTANTS.Settings.UPDATE_LAYER:
       _settings.layers[action.layer.id] = action.layer;
-      SettingsStore.emitChange();
       break;
     }
+
+    SettingsStore.emitChange();
 
     return true;
   })

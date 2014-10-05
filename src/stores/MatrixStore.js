@@ -45,7 +45,7 @@ var MatrixStore = merge(EventEmitter.prototype, {
 
     switch (action.actionType) {
       case CONSTANTS.Matrix.UPDATE:
-        _matrix = action.matrix.matrix;
+        _matrix = action.matrix;
         MatrixStore.emitChange();
         break;
     }

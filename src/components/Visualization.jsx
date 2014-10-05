@@ -7,6 +7,7 @@
 if (process.env.NODE_ENV !== 'test')
   require('./Visualization.scss');
 
+// var pbpf = require('react/addons');
 var React = require('react/addons');
 var Matrix = require('react-matrix');
 var MatrixStore = require('../stores').Matrix;

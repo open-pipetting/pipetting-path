@@ -5,25 +5,26 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var SettingsActions = {
   /**
-   * Device specific
+   * GeneralSettings
    */
 
-  // addDevice (device) {
-  //   AppDispatcher.handleDeviceAction({
-  //     actionType: CONSTANTS.Settings.ADD_DEVICE,
-  //     device: device.device
-  //   });
-  // },
+  updateSettings (settings) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Settings.UPDATE_SETTINGS,
+      settings: settings
+    });
+  },
 
-  // removeDevice (id) {
-  //   AppDispatcher.handleDeviceAction({
-  //     actionType: CONSTANTS.Settings.REMOVE_DEVICE,
-  //     id: id
-  //   });
-  // },
+  updateSize (type, value) {
+    AppDispatcher.handleViewAction({
+      actionType: CONSTANTS.Settings.UPDATE_SIZE,
+      type: type,
+      value: value
+    });
+  },
 
   /**
-   * View specific
+   * Layers
    */
 
   addLayer () {
@@ -44,7 +45,7 @@ var SettingsActions = {
       actionType: CONSTANTS.Settings.UPDATE_LAYER,
       layer: layer
     });
-  }
+  },
 };
 
 module.exports = SettingsActions;
