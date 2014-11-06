@@ -10,8 +10,8 @@ if (process.env.NODE_ENV !== 'test')
 var pbpf = require('../utils/pbpf');
 var React = require('react/addons');
 var Matrix = require('react-matrix');
-var MatrixStore = require('../stores').Matrix;
-var SettingsStore = require('../stores').Settings;
+var {MatrixStore} = require('../stores');
+var {SettingsStore} = require('../stores');
 var update = React.addons.update;
 var _clone = (obj) => JSON.parse(JSON.stringify(obj));
 

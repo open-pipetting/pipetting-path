@@ -2,13 +2,15 @@
   "name": "pipetting-path",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "author": "Ciro S. Costa <ciro9758@gmail.com> (https://cirocosta.github.io)",
   "license": "MIT",
   "scripts": {
+    "postinstall": "./postinstall.sh",
     "test": "NODE_ENV=test jest",
-    "build": "webpack -p",
-    "start": "webpack -d --watch --colors --progress"
+    "start": "webpack -d --watch --colors --progress",
+    "build-prod": "webpack -p",
+    "build-nodewebkit": "NODE_ENV=nodewebkit webpack -d --progress --watch --colors"
   },
   "jest": {
     "scriptPreprocessor": "./utils/jsx-preprocessor.js",
@@ -20,21 +22,27 @@
       "jsx"
     ]
   },
+  "window": {
+    "width": 860,
+    "height": 640
+  },
   "devDependencies": {
     "css-loader": "^0.8.0",
     "jest-cli": "^0.1.18",
     "jsx-loader": "^0.11.0",
     "mocha": "^1.21.4",
-    "react-tools": "^0.11.2",
-    "sass-loader": "^0.2.0",
-    "style-loader": "^0.8.0",
-    "webpack": "^1.4.0-beta5"
-  },
-  "dependencies": {
-    "object.assign": "^1.0.1",
+    "object-assign": "^1.0.1",
     "pathfinding": "^0.4.12",
     "react": "^0.11.2",
     "react-matrix": "0.0.5",
-    "similar-to": "0.0.1"
+    "react-tools": "^0.11.2",
+    "sass-loader": "^0.2.0",
+    "similar-to": "0.0.1",
+    "style-loader": "^0.8.0",
+    "webpack": "^1.4.0-beta5",
+    "yaspm": "0.0.2"
+  },
+  "dependencies": {
+    "object-assign": "^1.0.0"
   }
 }

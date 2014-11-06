@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== 'test')
   require('./Application.scss');
 
 var React = require('react');
+var Device = require('./Device.jsx');
 var Visualization = require('./Visualization.jsx');
 var Settings = require('./Settings/Settings.jsx');
 
@@ -16,6 +17,7 @@ var Application = React.createClass({
     return (
       <main className="grid">
         <h1>Pipetting Bot</h1>
+        <Device />
         <section className="grid__row">
           <article className="grid__col--4">
             <Visualization />

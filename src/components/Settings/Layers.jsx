@@ -6,8 +6,8 @@
 
 var React = require('react');
 var LayerOpts = require('./LayerOpts.jsx');
-var SettingsStore = require('../../stores').Settings;
-var SettingsActions = require('../../actions').Settings;
+var {SettingsStore} = require('../../stores');
+var {SettingsActions} = require('../../actions');
 
 var Layers = React.createClass({
   getInitialState: () => SettingsStore.getSettingsState(),

@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-  Matrix: require('./MatrixStore'),
-  Settings: require('./SettingsStore'),
+  MatrixStore: require('./MatrixStore'),
+  SettingsStore: require('./SettingsStore'),
+  DeviceStore: require('./DeviceStore'),
 };

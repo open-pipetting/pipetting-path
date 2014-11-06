@@ -1,26 +1,18 @@
-'use strict';
+var EventEmitter = require('events').EventEmitter;
+var CONSTANTS = require('../constants/');
+var assign = require('object-assign');
 
-/**
- * Basic funcitonalitty that all stores share.
- */
 
-var merge = require('react/lib/merge');
-var { CHANGE_EVENT } = require('../constants');
-
-var Store = merge(EventEmitter.prototype, {
+module.exports = assign({
   emitChange () {
-    this.emit(CHANGE_EVENT);
+    this.emit(CONSTANTS.CHANGE_EVENT);
   },
 
   addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
+    this.on(CONSTANTS.CHANGE_EVENT, cb);
   },
 
   removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+    this.removeListener(CONSTANTS.CHANGE_EVENT, cb);
   }
-});
-
-// TODO use this in MatrixStore and others.
-
-module.exports = Store;
+}, EventEmitter.prototype);

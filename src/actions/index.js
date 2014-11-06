@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
-  Matrix: require('./MatrixActions'),
-  Settings: require('./SettingsActions'),
+  MatrixActions: require('./MatrixActions'),
+  SettingsActions: require('./SettingsActions'),
+  DeviceActions: require('./DeviceActions'),
 };

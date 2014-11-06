@@ -9,8 +9,8 @@
  */
 
 var React = require('react/addons');
-var SettingsStore = require('../../stores').Settings;
-var SettingsActions = require('../../actions').Settings;
+var {SettingsStore} = require('../../stores');
+var {SettingsActions} = require('../../actions');
 var update = React.addons.update;
 
 var MachineOpts = React.createClass({
@@ -29,7 +29,7 @@ var MachineOpts = React.createClass({
   },
 
   handleInternalChange (e) {
-    SettingsStore.updateSize(
+    SettingsActions.updateSize(
       e.target.dataset.name,
       e.target.dataset.value);
   },

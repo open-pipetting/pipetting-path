@@ -1,17 +1,16 @@
 'use strict';
 
 var yaspm = require('yaspm');
-var Machines = yaspm.Machines('');
-var Actions = require('../actions');
-
+var Machines = yaspm.Machines('grbl');
+var {DeviceActions} = require('../actions');
 var _devices = [];
 
 function handleConnect (device) {
-  Actions.Settings.addDevice({device: device});
+  DeviceActions.addDevice({device: device});
 }
 
-function handleDisconnect (device) {
-  Actions.Settings.removeDevice({id: device.getInfo().pnpId});
+function handleDisconnect (id) {
+  DeviceActions.removeDevice({id: id});
 }
 
 function init () {
@@ -21,25 +20,9 @@ function init () {
       device
         .connect()
         .on('connect', handleConnect.bind(null, device))
-        .on('disconnect', handleDisconnect.bind(null, device));
+        .on('disconnect', handleDisconnect.bind(null, device.getInfo()));
     })
     .on('removeddevice', handleDisconnect);
-}
-
-/**
- * Fake init implementation -- testing only.
- */
-function fakeInit () {
-  var device = new yaspm.FakeDevice();
-  device.getInfo = () => {
-    return {
-      pnpId: 'arduino-fake-pnpId'
-    };
-  };
-
-  setTimeout(() => {
-    Actions.Settings.addDevice({device: device});
-  }, 1000);
 }
 
 module.exports = {

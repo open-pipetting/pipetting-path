@@ -1,13 +1,10 @@
 'use strict';
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
 var CONSTANTS = require('../constants');
-var merge = require('react/lib/merge');
+var Store = require('./Store');
+var assign = require('object-assign');
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
-
-// process.env.NODE_ENV !== 'web' && require('../utils/DeviceManager').init();
-
 var _settings = {
   width: 10,
   height: 10,
@@ -29,20 +26,8 @@ var INITIAL_LAYER = {
  * `dispatch` method.
  */
 
-var SettingsStore = merge(EventEmitter.prototype, {
+var SettingsStore = assign({
   getSettingsState: () => _settings,
-
-  emitChange () {
-    this.emit(CONSTANTS.CHANGE_EVENT);
-  },
-
-  addChangeListener (cb) {
-    this.on(CONSTANTS.CHANGE_EVENT, cb);
-  },
-
-  removeChangeListener (cb) {
-    this.removeListener(CONSTANTS.CHANGE_EVENT, cb);
-  },
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
@@ -79,7 +64,7 @@ var SettingsStore = merge(EventEmitter.prototype, {
 
     return true;
   })
-});
+}, Store);
 
 
 module.exports = SettingsStore;

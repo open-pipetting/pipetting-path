@@ -8,6 +8,9 @@ module.exports = {
     path: __dirname + '/dist',
     filename: 'main.js'
   },
+  externals: {
+    yaspm: 'commonjs yaspm'
+  },
   module: {
     loaders: [
       {test: /\.css$/, loader: 'style!css'},

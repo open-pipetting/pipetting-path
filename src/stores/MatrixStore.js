@@ -1,10 +1,10 @@
 'use strict';
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
 var SettingsStore = require('./SettingsStore');
 var CONSTANTS = require('../constants');
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
+var Store = require('./Store');
 var pbpf = require('../utils/pbpf');
 
 var clone = (obj) => JSON.parse(JSON.stringify(obj));
@@ -25,20 +25,8 @@ _matrix = clone(_INITIAL_MATRIX);
  * payload from the call of appdispatcher's
  * `dispatch` method.
  */
-var MatrixStore = merge(EventEmitter.prototype, {
+var MatrixStore = assign({
   getMatrixState: () => _matrix,
-
-  emitChange () {
-    this.emit(CONSTANTS.CHANGE_EVENT);
-  },
-
-  addChangeListener (cb) {
-    this.on(CONSTANTS.CHANGE_EVENT, cb);
-  },
-
-  removeChangeListener (cb) {
-    this.removeListener(CONSTANTS.CHANGE_EVENT, cb);
-  },
 
   dispatcherIndex: AppDispatcher.register((payload) => {
     var action = payload.action;
@@ -52,7 +40,7 @@ var MatrixStore = merge(EventEmitter.prototype, {
 
     return true;
   })
-});
+}, Store);
 
 
 

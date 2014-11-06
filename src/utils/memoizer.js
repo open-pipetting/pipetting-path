@@ -1,6 +1,6 @@
 'use strict';
 
-var assign = Object.assign || require('object.assign');
+var assign = Object.assign || require('object-assign');
 
 /**
  * Provides memoization for a given function.
