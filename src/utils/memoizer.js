@@ -4,6 +4,12 @@ var assign = Object.assign || require('object.assign');
 
 /**
  * Provides memoization for a given function.
+ *
+ * It is important to notice that it is not
+ * everytime that memoization will be
+ * interesting. In some situations executing the
+ * fuction per se is less costing than using
+ * memoize method.
  */
 
 function Memoizer (f) {

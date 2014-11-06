@@ -28,6 +28,19 @@ describe('PBPF', function() {
   });
 
   describe('.addLayers', function() {
+    it('return the same matrix if no layers', function() {
+      var matrix = [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0],
+      ];
+      var actual1 = pbpf.addLayers(matrix);
+      var actual2 = pbpf.addLayers(matrix, []);
+
+      assert.deepEqual(actual1, matrix);
+      assert.deepEqual(actual2, matrix);
+    });
+
     it('add a 1-thick layer to a matrix', function() {
       var matrix = [
         [0,0,0,0,0],

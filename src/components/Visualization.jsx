@@ -7,12 +7,13 @@
 if (process.env.NODE_ENV !== 'test')
   require('./Visualization.scss');
 
-// var pbpf = require('react/addons');
+var pbpf = require('../utils/pbpf');
 var React = require('react/addons');
 var Matrix = require('react-matrix');
 var MatrixStore = require('../stores').Matrix;
 var SettingsStore = require('../stores').Settings;
 var update = React.addons.update;
+var _clone = (obj) => JSON.parse(JSON.stringify(obj));
 
 var CELL_STATES = {
   '0': 'available',
@@ -38,7 +39,9 @@ var Visualization = React.createClass({
   },
 
   handleSettingsChange () {
-    this.setState(update(this.state, {settings: {$set: SettingsStore.getSettingsState()}}));
+    this.setState(
+      update(this.state, {settings: {$set: SettingsStore.getSettingsState()}})
+    );
   },
 
   handleMatrixChange () {
@@ -48,7 +51,8 @@ var Visualization = React.createClass({
   },
 
   render () {
-    // TODO prepare the optimized pipeline
+    var matrix = pbpf.addLayers(_clone(this.state.matrix), this.state.settings.layers);
+
     // pbpf
     //   .addLayers()
     //   .addPipette()
@@ -58,7 +62,7 @@ var Visualization = React.createClass({
       <div>
         <h1>Visualization</h1>
         <Matrix squareSize={10}
-                matrix={this.state.matrix}
+                matrix={matrix}
                 cellStates={CELL_STATES} />
       </div>
     );

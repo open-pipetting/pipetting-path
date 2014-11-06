@@ -5,7 +5,7 @@
  * of the pipetter. Although it might seem, it
  * does not have the notion of state. Its
  * utilities are mainly designed to receive a
- * matrix, mutate and then return the mutate
+ * matrix, mutate and then return the mutated
  * matrix. Management of state must be done by
  * other higher module.
  */
@@ -84,6 +84,9 @@ module.exports = {
    * right (defaults to left)
    */
   addLayers: function (matrix, layers) {
+    if (!layers)
+      return matrix;
+
     var h = matrix.length;
     var w = matrix[0].length;
 
